@@ -6,4 +6,4 @@ if you are curious, I am currently working on Hands-On Machine Learning with sci
 I use jupyter notebooks for my IDE.
 
 ---
-_Jose E. Aguilar Escamilla - 2020 - <3 python_
+<sup><i>Jose E. Aguilar Escamilla - 2020 - &lt;3 python</i></sup>
