@@ -3,6 +3,7 @@ Linear Algebra used for machine learning.
 '''
 import math
 from typing import List, Tuple, Callable
+import sympy
 
 #----------------
 # Vector Algebra |
@@ -90,6 +91,9 @@ def magnitude(v: Vector) -> float:
 def distance(v: Vector, w: Vector) -> float:
     return magnitude(subtract(v, w))
 
+# unit vector
+def unit_vector(v: Vector) -> Vector:
+    return [v[v_i]/magnitude(v) for v_i in range(len(v))]
 
 # ----------------
 # Matrix Algebra |
