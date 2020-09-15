@@ -267,3 +267,6 @@ def stochastic_gradient_descent(X: List[T],
             theta = gradient_step(theta, gradient, -learning_rate)
             if(show_case):
                     print(f"{str(epoch)} - parameters: {str(theta)} -- mse average minimization gradient: {str(gradient)}")
+
+# https://ruder.io/optimizing-gradient-descent/index.html#gradientdescentvariants
+# good comparison between all three.
