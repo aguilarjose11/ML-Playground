@@ -62,7 +62,8 @@ We can define the time course of a specific EPSP caused by a spike from neuron j
 
 ![\epsilon _{ij}(t - t^{(f)}_{j})](https://latex.codecogs.com/gif.latex?%5Cepsilon%20_%7Bij%7D%28t%20-%20t%5E%7B%28f%29%7D_%7Bj%7D%29)
 
-Which mathematically describes what is going on between the time of spike f from neuron j in the membrane of neuron i and some time t where t > t^(f)_j > 0
+Which mathematically describes what is going on between the time of spike f from neuron j in the membrane of neuron i and some time t where t > t^(f)_j > 0.
+This is why we treat epsilon _as some kind of function, but it has a more special mathematical meaning that just a function._ __Epsilon represents the PSP events.__ You could also see Epsilon as the function for a specific spike that returns the maximum voltage reached by the PSP event. We can also find the _Current spike_. We denote this as t - t^(f)_j meaning the current spike level at time t for event f from neuron j in membrane of neuron i.
 
 ![potential](https://neuronaldynamics.epfl.ch/online/x6.png)
 ![The accumulation of EPSPs](https://neuronaldynamics.epfl.ch/online/x7.png)
@@ -73,3 +74,15 @@ Which mathematically describes what is going on between the time of spike f from
 ![reaching potential](https://neuronaldynamics.epfl.ch/online/x9.png)
 
 **FIG. 3**: We see that after recieving multiple EPSPs, the PSP builds up towards threshold _v_ until we reach the threshold around ![\epsilon _{ij}(t - t^{(2)}_{1})](https://latex.codecogs.com/gif.latex?%5Cepsilon%20_%7Bij%7D%28t%20-%20t%5E%7B%282%29%7D_%7B1%7D%29)
+
+We can calculate the total change in the potential of the membrane by adding the individual PSPs if and only if _we do not reach the threshold level_.
+
+![Total change of potential](https://latex.codecogs.com/gif.latex?u_%7Bi%7D%28t%29%3D%5Csum_%7Bj%7D%20%5Csum_%7Bf%7D%5Cepsilon%20_%7Bij%7D%28t-t%5E%7Bf%7D_%7Bj%7D%29%20&plus;%20u_%7Brest%7D%20%5CRightarrow%20u_%7Bi%7D%28t%29%20%3C%20%5Cvartheta)
+
+We can see that we can simply add the Postsynaptic potentials at time t for each neuron and each spike (if a spike was triggered way before t, it should be 0 basically) and add to it the resting level to find the total Postsynaptic potential at time t. _Notice that the summation part of the equation give us the change (or better said, the amount above resting lever) in action potential at time t_. If we look at figure 3, we can see how at 
+![EPSP](https://latex.codecogs.com/gif.latex?%5Cepsilon%20_%7Bi2%7D%28t-t%5E%7B%282%29%7D_%7B2%7D%29) 
+The membrane reaches the threshold level after which the linearity of the neuron goes away and instead follows some very specific behaviour:
+1. membrane potential echibits pulse-like excursion reaching 100mV (Presynaptic levels) and _propagates along the axon of neuron i._
+2. Potential experiences a period of _hyperpolarization_ (aka. at negative levels.) also called __Spike-afterpotential__.
+
+**It is the combination of Postsynaptic Potentials that will cause the neuron to have an action potential. As we can see, the strength of the PSP of each neuron is the exact same, but the timing and frequency cause the Postsynaptic neuron's membrane potential to raise (or fall if dealing with IPSP) until reaching a threshold level.**
