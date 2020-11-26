@@ -91,3 +91,34 @@ The membrane reaches the threshold level after which the linearity of the neuron
 **FIG. 4**: We can see the reaching of the threshold levels and the spike-afterpotential period after the second spike comming from neuron 2.
 
 **It is the combination of Postsynaptic Potentials that will cause the neuron to have an action potential. As we can see, the strength of the PSP of each neuron is the exact same, but the timing and frequency cause the Postsynaptic neuron's membrane potential to raise (or fall if dealing with IPSP) until reaching a threshold level.**
+
+### Integrate-and-fire models
+
+There exist many models that model the way that neurons react and act in a mathematical way. One of the most basic, and the base for other models, is the *Integrate-and-fire models*. These models consist of 2 parts:
+1. A *linear* differential equation to describe the evolution/change in membrane potential.
+2. A threshold for spike firing.
+
+An important idea to take away is that neurons are seen as summation processes: We have to add the Postsynaptic potentials to check if we reach a threshold level v. the moment that we cross that threshold is refered to as ![t_i^f](https://latex.codecogs.com/gif.latex?t_%7Bi%7D%5E%7B%28f%29%7D). Notice how we refer to the postsynaptic, rather than the presynaptic neuron in the index of t. Once the neuron reaches the ![threshold](https://latex.codecogs.com/gif.latex?t_%7Bi%7D%5E%7B%28f%29%7D) point, _we use a mechanism to generate spikes_.
+
+We do not care for the shape of the spikes: they dont give information. It is their timing and sequences that matter.
+
+#### The Leaky Integrate-and-Fire Model
+
+Many models build on top of this model. It is based on the notion that a neuron can be described as a circuit where we have a resistor and a capacitor in parallel. we have a constant resting voltage ![u_rest](https://latex.codecogs.com/gif.latex?u_%7Brest%7D) that keeps a minimum voltage in the cell. We then have I(t) which is an external voltage applied to the system that raises the voltage in the system for a period of time before decaying.
+
+![](https://neuronaldynamics.epfl.ch/online/x12.png)
+![](https://neuronaldynamics.epfl.ch/online/x13.png)
+
+**FIG. 6**: Notice how the capacitor in the circuit represents the cell membrane that creates a type of capacitor, since the membrane is a pretty good insulator. As all things in real life, the insulation is not perfect, therefore it "leaks" over time. This is the escence of leaky Integrate-and-fire. The resistor in the circuit creates a delay time for the "leaking". **We refer to the action potentials as events.**
+
+##### Leak Integrator Formula/ Passive membrane
+
+Assume that at time t=0, the membrane potential is ![](https://latex.codecogs.com/gif.latex?u_%7Brest%7D%20&plus;%20%5CDelta%20u). What this means is that at time 0, we expect a spike to have happened. for t > 0, input current vanishes I(t) and the membrane potential goes down to its rest level.
+
+![](https://latex.codecogs.com/gif.latex?u%28t%29-u_%7Brest%7D%20%3D%20%5CDelta%20u%20%5C%3A%20exp%28-%20%5Cfrac%7Bt-t_%7B0%7D%7D%7B%5Ctau%20_%7Bm%7D%7D%29%20%5C%3B%5C%3B%20for%20%5C%3B%5C%3B%20t%20%3E%20t_%7B0%7D)
+
+where ![](https://latex.codecogs.com/gif.latex?%7B%5Ctau%20_%7Bm%7D%7D) = RC which is the characteristic time of the decay for the membrane potential. 
+
+![](https://latex.codecogs.com/gif.latex?%5CDelta%20u) is the level the spike reaches. In real life it is around 1 mV.
+
+This equation tell us that after an event is gone, the membrane potential decays in an exponential fashion. the delay of this decay is dependant on tau (in neurons is around 10ms).
