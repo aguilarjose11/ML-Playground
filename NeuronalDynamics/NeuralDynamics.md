@@ -50,8 +50,24 @@ When the voltage difference between rest and moment t is positive (![u_i(t)-u_re
 
 ![Membrane Potential Example A](https://neuronaldynamics.epfl.ch/online/x6.png)
 
-FIG. 1: We see the reaction inside of the membrane of the neuron. There is the Postsynaptic potential. Notice that this is not the Action Potential of the neuron. here we are showing the inputs of the postsynaptic neuron. If we were to reach _v_, then, we would have the triggering of an action potential in neuron i. _ESPS and ISPS tell us the type of input recieved by a neuron_
+**FIG. 1**: We see the reaction inside of the membrane of the neuron. There is the Postsynaptic potential. Notice that this is not the Action Potential of the neuron. here we are showing the inputs of the postsynaptic neuron. If we were to reach _v_, then, we would have the triggering of an action potential in neuron i. _ESPS and ISPS tell us the type of input recieved by a neuron_
 
 _Definition of Postsynaptic Potential_
+
 ![u_{i}(t) - u_{rest} =: \epsilon _{ij}(t)](https://latex.codecogs.com/gif.latex?u_%7Bi%7D%28t%29%20-%20u_%7Brest%7D%20%3D%3A%20%5Cepsilon%20_%7Bij%7D%28t%29)
+
 Where Epsilon is the Postsynaptic potential by definition of the difference in u_t and u_rest. You can see this as being a formula for the postsynaptic potential at time t. For example, we see in figure 1 that at time t=0, we register the spike comming from neuron j in the membrane of the Soma/Dendrite of neuron i.
+
+We can define the time course of a specific EPSP caused by a spike from neuron j in neuron i as:
+
+![\epsilon _{ij}(t - t^{(f)}_{j})](https://latex.codecogs.com/gif.latex?%5Cepsilon%20_%7Bij%7D%28t%20-%20t%5E%7B%28f%29%7D_%7Bj%7D%29)
+
+Which mathematically describes what is going on between the time of spike f from neuron j in the membrane of neuron i and some time t where t > t^(f)_j > 0
+
+![The accumulation of EPSPs](https://neuronaldynamics.epfl.ch/online/x9.png)
+
+**FIG. 2**: We can see the accumulation of Postsynaptic potentials in the membrane of the soma of neuron i when we recieve signals from neurons j=1, 2 (2 neurons). We never reach the threshold _v_.
+
+![Reaching of the threshold](https://neuronaldynamics.epfl.ch/online/x10.png)
+
+**FIG. 3**: We see that after recieving multiple EPSPs, the PSP builds up towards threshold _v_ until we reach the threshold around ![\epsilon _{ij}(t - t^{(2)}_{1})](https://latex.codecogs.com/gif.latex?%5Cepsilon%20_%7Bij%7D%28t%20-%20t%5E%7B%282%29%7D_%7B1%7D%29)
