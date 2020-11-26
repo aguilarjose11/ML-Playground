@@ -65,7 +65,7 @@ We can define the time course of a specific EPSP caused by a spike from neuron j
 Which mathematically describes what is going on between the time of spike f from neuron j in the membrane of neuron i and some time t where t > t^(f)_j > 0
 
 ![potential](https://neuronaldynamics.epfl.ch/online/x6.png)
-![The accumulation of EPSPs](https://neuronaldynamics.epfl.ch/online/x9.png)
+![The accumulation of EPSPs](https://neuronaldynamics.epfl.ch/online/x7.png)
 
 **FIG. 2**: We can see the accumulation of Postsynaptic potentials in the membrane of the soma of neuron i when we recieve signals from neurons j=1, 2 (2 neurons). We never reach the threshold _v_.
 
