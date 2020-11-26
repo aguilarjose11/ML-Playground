@@ -39,9 +39,19 @@ _Receptive Field_: The zone/area of stimuli where a neuron activates. (pixel 12,
 
 _Membrane Potential_: Within a neuron, the potential difference (the electrical level) is the function for the activity in a neuron u(t). A neuron is usually in u_rest, but when a signal comes in, it triggers a spike. If a change in u(t) is positive, we call the synapse to be **excitatory**, if it is negative, the synapse is **inhibitory**.
 
-![Membrane Potential Example](https://neuronaldynamics.epfl.ch/online/x6.png)
-
 An input at an excitatory synapse that reduces polatization (since cell mebrane is naturally negativelly charged ~-65mV) it is called _depolarizing_ (V > -65mV), if it increases the negativity, it is called _hyperpolarizing_.
 
 **Postsynaptic Potential (PSP) formula**
-for a time course (change in membrane potential) u, in the neuron i, we denote this the change in membrane potetial in neuron *i* as ![u_i(t)](https://latex.codecogs.com/gif.latex?u_%7Bi%7D%28t%29) 
+for a time course (change in membrane potential) u, in the neuron i, we denote this the change in membrane potetial in neuron *i* as ![u_i(t)](https://latex.codecogs.com/gif.latex?u_%7Bi%7D%28t%29) We let *j* be the Presynaptic neuron.
+
+Let t=0 the moment when neuron j fires a spike. for t > 0, we see in the graph below the response/change in ![u_i(t)](https://latex.codecogs.com/gif.latex?u_%7Bi%7D%28t%29) which is a positive spike.
+
+When the voltage difference between rest and moment t is positive (![u_i(t)-u_rest(t)](https://latex.codecogs.com/gif.latex?u_%7Bi%7D%28t%29%20-%20u_%7Brest%7D)), we call this an **Excitatory Postsynaptic Potential** or **EPSP**. When it is negative, we call this an **Inhibitory Postsynaptic Potential** or **IPSP**.
+
+![Membrane Potential Example A](https://neuronaldynamics.epfl.ch/online/x6.png)
+
+FIG. 1: We see the reaction inside of the membrane of the neuron. There is the Postsynaptic potential. Notice that this is not the Action Potential of the neuron. here we are showing the inputs of the postsynaptic neuron. If we were to reach _v_, then, we would have the triggering of an action potential in neuron i. _ESPS and ISPS tell us the type of input recieved by a neuron_
+
+_Definition of Postsynaptic Potential_
+![u_{i}(t) - u_{rest} =: \epsilon _{ij}(t)](https://latex.codecogs.com/gif.latex?u_%7Bi%7D%28t%29%20-%20u_%7Brest%7D%20%3D%3A%20%5Cepsilon%20_%7Bij%7D%28t%29)
+Where Epsilon is the Postsynaptic potential by definition of the difference in u_t and u_rest. You can see this as being a formula for the postsynaptic potential at time t. For example, we see in figure 1 that at time t=0, we register the spike comming from neuron j in the membrane of the Soma/Dendrite of neuron i.
