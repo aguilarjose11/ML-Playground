@@ -60,11 +60,11 @@ Where Epsilon is the Postsynaptic potential by definition of the difference in u
 
 We can define the time course of a specific EPSP caused by a spike from neuron j in neuron i as:
 
-![potential](https://neuronaldynamics.epfl.ch/online/x6.png)
 ![\epsilon _{ij}(t - t^{(f)}_{j})](https://latex.codecogs.com/gif.latex?%5Cepsilon%20_%7Bij%7D%28t%20-%20t%5E%7B%28f%29%7D_%7Bj%7D%29)
 
 Which mathematically describes what is going on between the time of spike f from neuron j in the membrane of neuron i and some time t where t > t^(f)_j > 0
 
+![potential](https://neuronaldynamics.epfl.ch/online/x6.png)
 ![The accumulation of EPSPs](https://neuronaldynamics.epfl.ch/online/x9.png)
 
 **FIG. 2**: We can see the accumulation of Postsynaptic potentials in the membrane of the soma of neuron i when we recieve signals from neurons j=1, 2 (2 neurons). We never reach the threshold _v_.
