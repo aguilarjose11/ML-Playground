@@ -46,6 +46,8 @@ for a time course (change in membrane potential) u, in the neuron i, we denote t
 
 Let t=0 the moment when neuron j fires a spike. for t > 0, we see in the graph below the response/change in ![u_i(t)](https://latex.codecogs.com/gif.latex?u_%7Bi%7D%28t%29) which is a positive spike.
 
+The reason that we do t-t^f_j is that if we want to see the time course for a single spike, it makes sense if we "translated" the graph for the spike back to zero. This would allow us to not have to move to time t^f_j!
+
 When the voltage difference between rest and moment t is positive (![u_i(t)-u_rest(t)](https://latex.codecogs.com/gif.latex?u_%7Bi%7D%28t%29%20-%20u_%7Brest%7D)), we call this an **Excitatory Postsynaptic Potential** or **EPSP**. When it is negative, we call this an **Inhibitory Postsynaptic Potential** or **IPSP**.
 
 ![Membrane Potential Example A](https://neuronaldynamics.epfl.ch/online/x6.png)
@@ -122,3 +124,48 @@ where ![](https://latex.codecogs.com/gif.latex?%7B%5Ctau%20_%7Bm%7D%7D) = RC whi
 ![](https://latex.codecogs.com/gif.latex?%5CDelta%20u) is the level the spike reaches. In real life it is around 1 mV.
 
 This equation tell us that after an event is gone, the membrane potential decays in an exponential fashion. the delay of this decay is dependant on tau (in neurons is around 10ms).
+
+##### The Pulse Input
+
+###### The Dynamics of the Pulse Input
+
+By integrating the *Leaky Integrator* formula, we can analyze the nature of the pulses as postsynaptic potentials.
+
+The pulse input that comes from the presynaptic neuron does not transmit any information in its amplitude, but rather on the timing of the spikes generated and their rate.
+
+![](https://latex.codecogs.com/gif.latex?u%28t%29-u_%7Brest%7D%20%3D%20%5CDelta%20u%20%5C%3B%20exp%28-%5Cfrac%7Bt-t_%7B0%7D%7D%7B%5Ctau%20_%7Bm%7D%7D%29)
+
+becomes the differential equation
+
+![](https://latex.codecogs.com/gif.latex?%5Ctau%20_%7Bm%7D%20%5Cfrac%7B%5Cmathrm%7Bd%7Du%20%7D%7B%5Cmathrm%7Bd%7D%20t%7D%20%3D%20-%5Bu%28t%29%20-%20u_%7Brest%7D%5D%20&plus;%20R%5C%3AI%28t%29)
+
+After integrating, we obtain
+
+![](https://latex.codecogs.com/gif.latex?u%28t%29%3Du_%7Brest%7D&plus;R%5C%3AI_%7B0%7D%5B1-exp%28-%5Cfrac%7Bt%7D%7B%5Ctau_%7Bm%7D%7D%29%5D)
+
+We asume that a spike comes in at time t = ![delta](https://latex.codecogs.com/gif.latex?%5CDelta). As our initial potential, we have U_rest. we integrate for 0 < t < ![delta](https://latex.codecogs.com/gif.latex?%5CDelta)
+
+We can use the dirac delta function for our analysis.
+
+_The dirac delta function is the function ![](https://latex.codecogs.com/gif.latex?%5Cdelta%28x%29%20%3D%200%20%5C%3B%20for%5C%3Bx%5Cneq%200) and its integral equals 1. The graph of the function is similar to a large plane with a stick standing in the middle of it. It is a mathematical abstraction but helps when analyzing equations/systems where we may need to approach some value ![](https://latex.codecogs.com/gif.latex?%5Cpsi) as we approach some value (delta or t in our case) to 0 as in ![](https://latex.codecogs.com/gif.latex?%5Clim_%7B%5CDelta%5Crightarrow%200%7D%5Cfrac%7B%5Cpsi%20%7D%7B%5CDelta%7D%20%3D%20%5Cpsi%5Clim_%7B%5CDelta%5Crightarrow%200%7D%5Cfrac%7B1%20%7D%7B%5CDelta%7D)._
+
+In the case of our analysis, we use the dirac delta function to model the spike behaviour of an input event.
+
+If we look at the resulting integral of the leaky integrator, we see that we depend on the variable t which would be the time course of out spike. This time course is actually defined as ![](https://latex.codecogs.com/gif.latex?0%20%3C%20t%20%3C%20%5CDelta) where uppercase delta is the duration of time the spike has. It would be ideal to modelate a spike as what it is: (some "bump" at a finite moment in time). We can accomplish this by taking the limit of the function as we approach 0 for delta.
+
+Now, based on out previous observation that the shape of a spike is always the exact same, we can also infer that the total charge of a spike is some fixed constant q. This can be modeled as the integral of the spike I(t), where I, as in the circuit diagram represents, is the incomming spike. we know that this spike is always the value q. we can use the dirac function to now shorten the length the spikes takes to near 0.
+
+![](https://neuronaldynamics.epfl.ch/online/x14.png)
+
+as we make the pulse "slimmer" (above), we notice how the PSP changes to become more of a triangle shape. It is important to note, once again, that the area under the curves always remain the same. we can model this with the equation 
+
+![](https://latex.codecogs.com/gif.latex?I%28t%29%20%3D%20q%5Cdelta%20%28t%29)
+
+The dirac function takes off of our backs the time course t (the membrane potential just jumps at time t=0)
+
+##### The Threshold for Spike Firing
+
+
+
+
+
