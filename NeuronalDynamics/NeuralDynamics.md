@@ -165,7 +165,20 @@ The dirac function takes off of our backs the time course t (the membrane potent
 
 ##### The Threshold for Spike Firing
 
+We refer to the moment when a spike "fires" or emits its action potential as the firing time and is described mathematically as the firing time ![](https://latex.codecogs.com/gif.latex?t%5E%7B%28f%29%7D). This event happens in the leaky integrate-and-fire when the postsynaptic potential passes the threshold v and is described as:
 
+![](https://latex.codecogs.com/gif.latex?t%5E%7B%28f%29%7D%3A%5C%3Bu%28t%5E%7B%28f%29%7D%29%20%3D%20%5Cvartheta)
 
+Once more, the form of a spike is rather irrelevant, but the time of firing is.
+At time ![](https://latex.codecogs.com/gif.latex?t%5E%7B%28f%29%7D) an action potential is sents/created but right after it what happens? We know that the linearity of the system breaks down when we cross the threshold, so a very specific set of actions happen. The potential comes down to some value ![](https://latex.codecogs.com/gif.latex?u_%7Br%7D). Again, because we model the spike as literally some spike at the exact moment ![](https://latex.codecogs.com/gif.latex?t%5E%7B%28f%29%7D) where its length of time approaches 0 we define the "reset" period with the following equation:
 
+![](https://latex.codecogs.com/gif.latex?%5Clim_%7B%5Cdelta%5Crightarrow0%3B%5Cdelta%3E0%7D%5C%3Au%28t%5E%7B%28f%29%7D&plus;%5Cdelta%29%20%3D%20u_%7Br%7D)
+
+Notice how this limit is a right-hand-sided limit. We already know that at some point after the spike time the potential decays back to u_rest, but in between the potential decays to some value u_r which is the reset potential. Now, when does this happen? well, this happens immediately after the spike occurs at its time t^(f). The limit "pushes" the time of this occurence as close as possible as "right after" the spike. **After that moment, the neuron falls back to u_rest and the behaviour of the neuron is given by the leky fire-and-integrate equation.**
+
+**The combination of the two mentioned equations (leaky integrate-and-fire and spike-firing equations) create the _Leaky Integrate-and-Fire_**
+
+![](https://neuronaldynamics.epfl.ch/online/x16.png)
+
+**FIG 7.** Example of an Integrate-and-Fire model. Here we appreciate the time course when we have a constant input current of 1.5 (this is what makes the curves so smooth compared with FIG 8 which is time dependent.) When ![](https://latex.codecogs.com/gif.latex?%5Clarge%20%5CDelta%20u%28t%29%20/%20%5Cvartheta) >= 1, the threshold values has been crossed, and we move from following the behaviour in the leaky integrator equation to the one of spike-firing. Right after the time t, the potential is reset to u_r which is the same thing as u_rest
 
