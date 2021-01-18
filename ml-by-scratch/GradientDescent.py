@@ -1,8 +1,10 @@
 '''
-Gradient Descent is a technique used in machine learning to 
-__optimize__ the problem of finding the best model for a 
+Gradient Descent is a technique used in machine learning to
+__optimize__ the problem of finding the best model for a
 given dataset.
 '''
+
+
 from sympy import limit, symbols
 import random
 
@@ -21,6 +23,8 @@ from linear_algebra import Vector, distance, add, scalar_multiply, dot, vector_m
 (d/dx)*f(x) = lim_(h->0) [f(x + h) - f(x)] / h
 
 '''
+
+
 def difference_quotient(f: Callable[[float], float],
                         x: float,
                         h: float) -> float:
@@ -138,13 +142,13 @@ def linear_gradient(x: float,
     squared_error = error ** 2
 
     '''
-        The book is note very specific on how the gradient formula is calculated 
+        The book is not very specific on how the gradient formula is calculated 
         and may not be as obvious at first for newbies. Here it is an explanation:
 
         error = y_p - y, where y_p is the prediction, and y is the actual value.
 
         This example uses the Squared Error so that we can calculate
-        the Mean Absolute Error(MSE) error function:
+        the Mean Squaredy Error(MSE) error function:
         SE = error^2
         MSE = 1/n * sum(SE) , where n is the number of cases that were evaluated
         note: this builds for RMSE, which has the same unit as the y value. we won't see it here
