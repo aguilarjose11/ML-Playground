@@ -1,0 +1,6 @@
+Neural Networks from Scratch
+=============================
+
+Hi and welcome to my personal Neural Network "Lab". Here, you can see my "from-scratch" experiments as I further increase and sharpen my knowledge around these peculiar mathematical concepts. I will be writing mostly in python but may eventualy use C++ to touch up on my skills. So you may be asking, why are thou be writing neural networks from scratch? My answer may come as no surprise to anybody familiar with me: Because it is fun! I have several research projects I have in mind or are working on that require a "from-scratch" treatment for the math to work. I strongly discourage the use of this code in real-life projects. This code is only for studing, not for real-life applications. Please use already-available frameworks that use neural networks such as tensorflow or keras. The code I am writing here is extremely inneficient at best if compared with these "close-to-production" frameworks.
+
+If you have questions or would like to collaborate with me, feel free to contact me at [joseaguilar@ou.edu](mailto:joseaguilar@ou.edu)
