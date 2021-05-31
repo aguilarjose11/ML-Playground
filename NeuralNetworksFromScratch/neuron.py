@@ -145,6 +145,8 @@ not same as size of layer {size}"""
         # Shall ignore bias_weights if no biases
         assert len(bias_weights) == size if bias else True, \
 f"Bias shape {len(bias_weights)} != layer shape {size}"
+        if bias:
+            inputs += 1
 
         self.bias = bias
         self.layer = []
@@ -195,7 +197,7 @@ f"Bias shape {len(bias_weights)} != layer shape {size}"
         output = [n.output(input) for n in self.layer]
         # Accounts for output of no-input bias neuron.
         if self.bias:
-            output + [1]
+            output += [1]
         
         return output
 
@@ -217,7 +219,7 @@ class NeuralNetwork:
                  weights: Tensor=None, 
                  activation: List[Callable[[float], float]]=sigmoid,
                  use_bias: bool=True,
-                 bias_weights: Tensor=None):
+                 bias_weights: Matrix=None):
         
         # Run checks:
         if len(shape) < 1:
@@ -239,7 +241,7 @@ class NeuralNetwork:
                     weights[i+1], 
                     activation[i+1], 
                     use_bias, 
-                    bias_weights))
+                    bias_weights[i+1]))
         else:
             # Create input weights
             for i, layer_size in enumerate(shape[1:]):
@@ -249,15 +251,20 @@ class NeuralNetwork:
                     None, 
                     activation[i+1], 
                     use_bias, 
-                    bias_weights))# TODO
+                    bias_weights[i+1]))# TODO
 
     def solve(self, x: Vector) -> List[float]:
         # In case of usage of bias.
         tmp = x.copy()
         # Pass through input layer
         tmp = self.network[0].solve(tmp)
+        if self.bias:
+            tmp += [1] # account for non-biased input layer in biased network
         # Pass through every other layer
+        counter = 1
         for layer in self.network[1:]:
+            print(f"{counter}")
+            counter = counter + 1
             tmp = layer.solve(tmp)
         # Last element is bias if used. uneccesary.
         if self.bias:

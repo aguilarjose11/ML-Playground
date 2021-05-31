@@ -257,12 +257,12 @@ class TestNeuralLayer:
             activation=activation,
             bias=bias,
             bias_weights=bias_weights)
-        result = nl.solve(data)
+        result = nl.solve(data)[:-1]
         
         net = [[w + [b] for w, b in zip(weights, bias_weights)],]
         true_val = feed_forward(net, data, activation)
 
-        assert result == true_val[0]
+        assert result == true_val[-1]
 
 
 
@@ -270,14 +270,14 @@ class TestNeuralNetwork:
     def test_init(self):
 
         # No Bias
-        n_layers = random.randint(0, 20)
+        n_layers = random.randint(1, 20)
         shape = [random.randint(2, 30) for _ in range(n_layers)]
-        data = [random.randint(0, 100) for _ in range(shape[0])] + [1]
+        data = [random.randint(0, 100) for _ in range(shape[0])]
         weights = [[[random.random() 
-            for _ in range(shape[i-1 if i-1 > 0 else 0])] 
-                for i in range(layer_size)] 
-                    for layer_size in shape]
-        activation = sigmoid
+            for _ in range(shape[i-1 if i-1 > 0 else 0])]  # For every neuron in previous layer
+                for _ in range(layer_size)]                # For every neuron in layer
+                    for i, layer_size in enumerate(shape)] # For every layer
+        activation = [sigmoid for _ in range(n_layers)]
         use_bias = False
         bias_weights = [[random.random() 
             for _ in range(size)]
@@ -292,19 +292,19 @@ class TestNeuralNetwork:
 
         true_val = feed_forward(weights,
             data,
-            activation)
+            activation[0])
 
-        assert result == true_val
+        assert result == true_val[-1]
 
         # With Bias
         n_layers = random.randint(0, 20)
         shape = [random.randint(2, 30) for _ in range(n_layers)]
-        data = [random.randint(0, 100) for _ in range(shape[0])] + [1]
+        data = [random.randint(0, 100) for _ in range(shape[0])]
         weights = [[[random.random() 
-            for _ in range(shape[i-1 if i-1 > 0 else 0])] 
-                for i in range(layer_size)] 
-                    for layer_size in shape]
-        activation = sigmoid
+            for _ in range(shape[i-1 if i-1 > 0 else 0])]  # For every neuron in previous layer
+                for _ in range(layer_size)]                # For every neuron in layer
+                    for i, layer_size in enumerate(shape)] # For every layer
+        activation = [sigmoid for _ in range(n_layers)]
         use_bias = True
         bias_weights = [[random.random() 
             for _ in range(size)]
@@ -321,11 +321,11 @@ class TestNeuralNetwork:
             bias_weights)
         result = ANN.solve(data)
 
-        true_val = feed_forward(weights,
+        true_val = feed_forward(net,
             data,
-            activation)
+            activation[0])
 
-        assert result == true_val
+        assert result == true_val[-1]
 
 
     def test_solve(self):
