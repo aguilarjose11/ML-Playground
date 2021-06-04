@@ -1,6 +1,6 @@
 
 
-from utils import Vector, Matrix, Tensor, dot, step_function, sigmoid
+from .utils import Vector, Matrix, Tensor, dot, step_function, sigmoid, identity
 from typing import List, Callable
 import random
 
@@ -84,6 +84,24 @@ class Neuron:
         # neural inputs insinuated from weights
         self.w_ij = weights
 
+    # UNTESTED
+    def __len__(self) -> int:
+        """Dunder method for length"""
+        return len(self.w_ij)
+
+    # UNTESTED
+    def __getitem__(self, 
+                    key: int) -> float:
+        """Dunder method for indexing"""
+        return self.w_ij[key]
+
+    # UNTESTED
+    def __setitem__(self, 
+                    key: int, 
+                    value: float) -> None:
+        """Dunder method for seting with indexing"""
+        self.w_ij[key] = value
+
 
     def output(self, input: Vector) -> float:
         """Solve neuron with given activation function
@@ -100,6 +118,7 @@ class Neuron:
 
         return self.activation(
                sum(x*w for x, w in zip(input, self.w_ij)))
+
 
 class NeuralLayer:
 
@@ -140,11 +159,11 @@ class NeuralLayer:
         # Error checks
         assert size >= 1, f"Invalid Layer Shape {size}"
         assert len(weights) == size if weights else 1, \
-f"""Number of weights given per neuron {len(weights)} 
-not same as size of layer {size}"""
+            f"""Number of weights given per neuron {len(weights)} 
+            not same as size of layer {size}"""
         # Shall ignore bias_weights if no biases
         assert len(bias_weights) == size if bias else True, \
-f"Bias shape {len(bias_weights)} != layer shape {size}"
+            f"Bias shape {len(bias_weights)} != layer shape {size}"
         if bias:
             inputs += 1
 
@@ -202,10 +221,6 @@ f"Bias shape {len(bias_weights)} != layer shape {size}"
         return output
 
 
-class PerceptronLayer(NeuralLayer):
-    pass
-
-# TODO Add  output layer function specification!
 class NeuralNetwork:
     """
 
@@ -226,6 +241,9 @@ class NeuralNetwork:
             raise(Exception("Invalid Seed shape"))
         self.bias = use_bias
         # Create input layer. Input layer never uses bias
+        # idealy, no manipulation occurs:
+        # weights[n] = 1
+        # activation[n] = identity
         self.network = [NeuralLayer(
             shape[0],
             1, 
@@ -253,6 +271,25 @@ class NeuralNetwork:
                     use_bias, 
                     bias_weights[i+1]))# TODO
 
+
+    def __len__(self) -> int:
+        """Dunder method for length"""
+        return len(self.network)
+
+
+    def __getitem__(self, 
+                    key: int) -> NeuralLayer:
+        """Dunder method for indexing"""
+        return self.network[key]
+
+
+    def __setitem__(self, 
+                    key: int, 
+                    value: NeuralLayer) -> None:
+        """Dunder method for seting with indexing"""
+        self.network[key] = value
+
+
     def solve(self, x: Vector) -> List[float]:
         # In case of usage of bias.
         tmp = x.copy()
@@ -261,10 +298,7 @@ class NeuralNetwork:
         if self.bias:
             tmp += [1] # account for non-biased input layer in biased network
         # Pass through every other layer
-        counter = 1
         for layer in self.network[1:]:
-            print(f"{counter}")
-            counter = counter + 1
             tmp = layer.solve(tmp)
         # Last element is bias if used. uneccesary.
         if self.bias:
