@@ -73,3 +73,9 @@ def step_function(x: float):
 def sigmoid(t: float) -> float:
     return 1 / (1 + math.exp(-t))
 
+
+def h_tan(t: float) -> float:
+    return math.tanh(t)
+
+def identity(t: float) -> float:
+    return t
