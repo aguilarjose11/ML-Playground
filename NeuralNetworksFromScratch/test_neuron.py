@@ -1,5 +1,5 @@
-from neuron import Neuron, NeuralLayer, NeuralNetwork, feed_forward, perceptron_output, sigmoid, dot
-from utils import Vector, Matrix, Tensor
+from .neuron import Neuron, NeuralLayer, NeuralNetwork, feed_forward, perceptron_output
+from .utils import Vector, Matrix, Tensor, dot, sigmoid
 import random
 import pytest
 
