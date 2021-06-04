@@ -84,18 +84,18 @@ class Neuron:
         # neural inputs insinuated from weights
         self.w_ij = weights
 
-    # UNTESTED
+
     def __len__(self) -> int:
         """Dunder method for length"""
         return len(self.w_ij)
 
-    # UNTESTED
+
     def __getitem__(self, 
                     key: int) -> float:
         """Dunder method for indexing"""
         return self.w_ij[key]
 
-    # UNTESTED
+
     def __setitem__(self, 
                     key: int, 
                     value: float) -> None:

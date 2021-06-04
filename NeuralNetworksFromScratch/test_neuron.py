@@ -32,6 +32,46 @@ class TestNeuron:
         result = neuron.output(input=inputs)
 
         assert result == result
+
+    
+    def test_len(self):
+
+        presyn = 5
+        weights = [random.random() for _ in range(presyn)]
+        activation = sigmoid
+        neuron = Neuron(weights=weights,
+            activation=activation)
+        assert len(neuron) == len(neuron.w_ij)
+
+
+    def test_getitem(self):
+
+        presyn = 5
+        weights = [random.random() for _ in range(presyn)]
+        activation = sigmoid
+        neuron = Neuron(weights=weights,
+            activation=activation)
+
+        rand_index = random.randint(0, len(neuron.w_ij)-1)
+
+        assert neuron[rand_index] == neuron.w_ij[rand_index]
+
+
+    def test_setitem(self):
+
+        presyn = 5
+        weights = [random.random() for _ in range(presyn)]
+        activation = sigmoid
+        neuron = Neuron(weights=weights,
+            activation=activation)
+
+        rand_index = random.randint(0, len(neuron.w_ij)-1)
+
+        w = random.randint(0, len(neuron.w_ij)-1)
+
+        neuron[rand_index] = w
+
+        assert neuron.w_ij[rand_index] == w
         
 
 
