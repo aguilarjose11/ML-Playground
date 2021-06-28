@@ -163,8 +163,8 @@ class Network:
 
 
     def mse_prime(self,
-        y_pred: np.ndarray,
-        y:      np.ndarray) -> float:
+        y_pred: Union[float, np.ndarray],
+        y:      Union[float, np.ndarray]) -> Union[float, np.ndarray]:
         """MSE function derivative
         
         The function derivative of this MSE uses a "sweeter" version
@@ -180,7 +180,12 @@ class Network:
                            d y_pred
         """
 
-        return np.linalg.norm(y_pred - y)
+        # len(shape) == 1 represents an array
+        if type(y) == type(y_pred) == float or len(y_pred.shape) == 1:
+            # Single value passed
+            return np.linalg.norm(y_pred - y)
+        else:
+            return [np.linalg.norm(a - yy) for a, yy in zip(y_pred, y)]
 
 
 
@@ -197,7 +202,7 @@ class Network:
             Input data
         """
 
-        output = []
+        output = [a.copy()]
         for b_l, w_l in zip(self.biases, self.weights):
             z_l = np.matmul(w_l, a) + b_l
             a_l = self.sigmoid(z_l)
@@ -238,6 +243,15 @@ class Network:
         - Size of stochastic gradient descent's batches
         sgd: bool=True
         - Flag to use stochastic gradient descent or regular descent.
+
+        Implements backpropagation as defined by the following 4 
+        equations:
+
+        delta^L    = /\\_a C * sigma'(z^L)
+        delta^l    = ( (w^(l+1)_jk)^T*delta^(l+1) ) * sigma'(Z^l)
+        dC/db^l_j  = delta^l
+        dC/dw^l_jk = a^(l-1)_k * delta^l
+
         """
 
         # Test data usage is unimplemented. TODO
@@ -247,14 +261,47 @@ class Network:
         else:
             # Will train with regular GD
             for epoch in range(epochs):
-                for X_t, y_t in zip(X, y):
-                    a = self.feedforward(X_t)
+                # changes matrices
+                del_b = [np.zeros(layer.shape) for layer in self.biases]
+                del_w = [np.zeros(layer.shape) for layer in self.weights]
 
+                for X_t, y_t in zip(X, y):
+                    # Calculate Output Layer
+                    a = self.feedforward(X_t)
                     z_L = np.matmul(self.weights[-1], a[-2]) + self.biases[-1]
                     # numpy's array's * product is the hadamard product by default
-                    delta_L = 
-                    for l in 
+                    # Output layer's error
+                    delta_L = self.mse_prime(a, y_t) * self.sigmoid_prime(z_L)
+                    # Add output changes.
+                    del_b_l = [delta_L]
+                    del_w_l = [a[-2] * delta_L]
 
+                    # Calculate hidden layers
+                    delta_l = delta_L
+
+                    for l in range(len(self.weights[-2::-1]), 0, -1):
+                        z_l     = np.matmul(self.weights[l], a[l-1]) + self.biases[l]
+                        delta_l = (self.weights[l].transpose()*delta_l) * self.sigmoid_prime(z_l)
+                        del_b_l.append(delta_l)
+                        del_w_l.append(a[l-1] * delta_l)
+
+                    # To save time, changes were appended to the end.
+                    # Thus, Why we need to reverse them so to match.
+                    del_b_l.reverse()
+                    del_w_l.reverse()
+                    for l, b, w in range(zip(del_b_l, del_w_l)):
+                        del_b[l] += b
+                        del_w[l] += w
+
+                # Calculate averaged modification.
+                for l, _, _ in range(zip(del_b, del_w)):
+                    del_b[l] /= len(y)
+                    del_w[l] /= len(y)
+
+                # Apply step
+                for l, b, w, _, _ in range(zip(del_b, del_w, self.weights, self.biases)):
+                    self.biases[l]  += eta * b
+                    self.weights[l] += eta * w
 
     def gradient_descent(self,
         data: List[Any],
@@ -285,38 +332,3 @@ class Network:
         self.biases = [b-(eta/len(data))*nb
             for b, nb in zip(self.biases, nabla_b)]
     
-
-    def backprop(self, x, y):
-        """Return a tuple ``(nabla_b, nabla_w)`` representing the
-        gradient for the cost function C_x.  ``nabla_b`` and
-        ``nabla_w`` are layer-by-layer lists of numpy arrays, similar
-        to ``self.biases`` and ``self.weights``."""
-        nabla_b = [np.zeros(b.shape) for b in self.biases]
-        nabla_w = [np.zeros(w.shape) for w in self.weights]
-        # feedforward
-        activation = x
-        activations = [x] # list to store all the activations, layer by layer
-        zs = [] # list to store all the z vectors, layer by layer
-        for b, w in zip(self.biases, self.weights):
-            z = np.dot(w, activation)+b
-            zs.append(z)
-            activation = self.sigmoid(z)
-            activations.append(activation)
-        # backward pass
-        delta = self.cost_derivative(activations[-1], y) * \
-            sigmoid_prime(zs[-1])
-        nabla_b[-1] = delta
-        nabla_w[-1] = np.dot(delta, activations[-2].transpose())
-        # Note that the variable l in the loop below is used a little
-        # differently to the notation in Chapter 2 of the book.  Here,
-        # l = 1 means the last layer of neurons, l = 2 is the
-        # second-last layer, and so on.  It's a renumbering of the
-        # scheme in the book, used here to take advantage of the fact
-        # that Python can use negative indices in lists.
-        for l in xrange(2, self.num_layers):
-            z = zs[-l]
-            sp = sigmoid_prime(z)
-            delta = np.dot(self.weights[-l+1].transpose(), delta) * sp
-            nabla_b[-l] = delta
-            nabla_w[-l] = np.dot(delta, activations[-l-1].transpose())
-        return (nabla_b, nabla_w)
