@@ -358,8 +358,8 @@ class Network:
                     del_b_t.reverse()
                     del_w_t.reverse()
                     for l, (b, w) in enumerate(zip(del_b_t, del_w_t)):
-                        del_b[l] += b
-                        del_w[l] += w # Do numpy's matrices add as expected?
+                        del_b[l] += -b
+                        del_w[l] += -w # Do numpy's matrices add as expected?
                 
                 #print(f"before: Bias: {self.biases} Weights: {self.weights}")
                 for l, (b, w) in enumerate(zip(del_b, del_w)):
