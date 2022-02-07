@@ -104,7 +104,9 @@ def execute_exp(args):
         print("Done Training")
         
         # Save the training history
-        fp = # TODO
+        fp = open('results/xor_results_%s.pkl'%(argstring), 'wb')
+        pickle.dump(history.history, fp)
+        pickle.dump(args, fp)
         # TODO
         fp.close()
 
@@ -117,7 +119,9 @@ def display_learning_curve(fname):
     '''
     
     # Load the history file and display it
-    fp = #TODO
+    fp = open(fname, "rb")
+    history = pickle.load(fp)
+    
     # TODO
     fp.close()
     
@@ -149,7 +153,11 @@ def create_parser():
     Create a command line parser for the XOR experiment
     '''
     parser = argparse.ArgumentParser(description='XOR Learner')
-    # TODO
+    parser.add_argument('--exp', type=int, default=0, help='Experimental index')
+    parser.add_argument('--epochs', type=int, default=100, help='Number of training epochs')
+    parser.add_argument('--hidden', type=int, default=0, help='Number of hidden units')
+    parser.add_argument('--gpu', action='store_true', ehlp='Use a GPU')
+    parser.add_argument('--nogo', action='store_true', ehlp='Do not perform the experiment')
     return parser
 
 '''
